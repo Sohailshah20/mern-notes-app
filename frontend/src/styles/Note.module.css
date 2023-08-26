@@ -1,0 +1,8 @@
+.noteBody{
+    color: white;
+    background-color: #181818;
+}
+
+.noteText {
+    white-space: pre-wrap;
+}
