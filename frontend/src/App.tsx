@@ -25,7 +25,7 @@ function App() {
     }, []);
 
     return (
-        <div className="blobal">
+        <div className="global">
             {notes.map(n => (
                 <Note note={n} key={n._id}/>
             ))}
