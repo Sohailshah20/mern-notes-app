@@ -1,33 +1,36 @@
-import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import { Note } from './models/note';
+import './global.css';
+import React, {useEffect, useState} from 'react';
+import {Note as NoteModel} from './models/note';
+import Note from "./components/Note";
 
 
 function App() {
 
-  const [notes, setNotes] = useState<Note[]>([]);
+    const [notes, setNotes] = useState<NoteModel[]>([]);
 
-  useEffect(() => {
-    async function loadNotes() {
-      try {
-        const response = await fetch("http://localhost:9000/api/notes", { method: "GET" });
-        const notes = await response.json();
-        setNotes(notes)
+    useEffect(() => {
+        async function loadNotes() {
+            try {
+                const response = await fetch("/api/notes", {method: "GET"});
+                const notes = await response.json();
+                setNotes(notes)
 
-      } catch (error) {
-        console.error(error);
-        alert(error);
-      }
-    }
-    loadNotes()
-  }, []);
+            } catch (error) {
+                console.error(error);
+                alert(error);
+            }
+        }
 
-  return (
-    <div className="App">
-      {JSON.stringify(notes)}
-    </div>
-  );
+        loadNotes()
+    }, []);
+
+    return (
+        <div className="blobal">
+            {notes.map(n => (
+                <Note note={n} key={n._id}/>
+            ))}
+        </div>
+    );
 }
 
 export default App;
