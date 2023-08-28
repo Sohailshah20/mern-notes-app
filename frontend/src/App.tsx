@@ -1,7 +1,8 @@
-import './global.css';
-import React, {useEffect, useState} from 'react';
+import './App.css'
 import {Note as NoteModel} from './models/note';
-import Note from "./components/Note";
+import Note from "./components/Note.tsx";
+import * as NoteApi from "./repository/notesApi.ts"
+import {useEffect, useState} from "react";
 
 
 function App() {
@@ -11,12 +12,9 @@ function App() {
     useEffect(() => {
         async function loadNotes() {
             try {
-                const response = await fetch("/api/notes", {method: "GET"});
-                const notes = await response.json();
+                const notes = await NoteApi.getNotes();
                 setNotes(notes)
-
             } catch (error) {
-                console.error(error);
                 alert(error);
             }
         }
@@ -25,9 +23,9 @@ function App() {
     }, []);
 
     return (
-        <div className="global">
-            {notes.map(n => (
-                <Note note={n} key={n._id}/>
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+            {notes.map(notes => (
+                <Note note={notes} key={notes._id}/>
             ))}
         </div>
     );
